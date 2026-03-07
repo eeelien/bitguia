@@ -59,9 +59,9 @@ function App() {
           </p>
         </div>
 
-        {activeTab === 'agente' && <Agente sessionId={sessionId} />}
+        {activeTab === 'agente' && <Agente />}
         {activeTab === 'graficas' && <Graficas />}
-        {activeTab === 'simulador' && <Simulador sessionId={sessionId} />}
+        {activeTab === 'simulador' && <Simulador />}
         {activeTab === 'aprende' && <Aprende />}
       </main>
 
