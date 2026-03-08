@@ -158,10 +158,10 @@ export default function Simulador() {
         </div>
         <div className="space-y-4">
           <div className="bg-gray-900 rounded-lg border border-gray-800 p-6">
-            <h3 className="font-semibold mb-4 text-lg">Stop Loss</h3>
+            <h3 className="font-semibold mb-2 text-lg">Stop Loss 🛡️</h3>
+            <p className="text-xs text-gray-400 mb-4">Protege tu inversión. Si BTC baja del precio que indiques, te avisaremos para que puedas vender a tiempo y no perder más dinero.</p>
             <input min="0" type="number" value={stopLossPrice} onChange={e => setStopLossPrice(e.target.value)} placeholder="Precio límite (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 mb-2" />
-            <p className="text-xs text-gray-400 mb-3">Recibirás alerta si BTC cae a este precio.</p>
-            <div className="p-3 bg-orange-900/20 border border-orange-700/30 rounded-lg text-xs text-orange-200">Stop Loss es educativo. Las ventas son manuales.</div>
+            <div className="p-3 bg-orange-900/20 border border-orange-700/30 rounded-lg text-xs text-orange-200">Las ventas son manuales en la simulación.</div>
           </div>
           <div className="bg-gray-900 rounded-lg border border-gray-800 p-6">
             <h3 className="font-semibold mb-4">Últimas transacciones</h3>
