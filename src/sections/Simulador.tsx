@@ -44,6 +44,31 @@ export default function Simulador() {
   useEffect(() => { localStorage.setItem('bitguia_trades', JSON.stringify(trades)) }, [trades])
 
   const fetchBTCPrice = async () => {
+    try {
+      const price = await getBTCPriceMXN()
+      if (price && price > 0) {
+        setBtcPrice(price)
+        if (stopLossPrice && Number(stopLossPrice) > price) {
+          setError(`⚠️ Stop loss: BTC está en $${price.toLocaleString('es-MX')} MXN`)
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching BTC price', err)
+    }
+  }
+    try {
+      const price = await getBTCPriceMXN()
+      if (price && price > 0) {
+        setBtcPrice(price)
+        if (stopLossPrice && Number(stopLossPrice) > price) {
+          setError(`⚠️ Stop loss: BTC está en $${price.toLocaleString('es-MX')} MXN`)
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching BTC price', err)
+    }
+  }
+
     const price = await getBTCPriceMXN()
     setBtcPrice(price)
     if (stopLossPrice && Number(stopLossPrice) > price) {
@@ -53,20 +78,27 @@ export default function Simulador() {
 
   const executeTrade = (type: 'buy' | 'sell', mxnAmount: number) => {
     setError('')
-    setLoading(true)
-    const btcAmount = mxnAmount / btcPrice
-    if (type === 'buy' && mxnAmount > portfolio.balance_mxn) { setError('Saldo insuficiente'); setLoading(false); return }
-    if (type === 'sell' && btcAmount > portfolio.btc_balance) { setError('No tienes suficiente BTC'); setLoading(false); return }
-    const newPortfolio: Portfolio = {
-      balance_mxn: type === 'buy' ? portfolio.balance_mxn - mxnAmount : portfolio.balance_mxn + mxnAmount,
-      btc_balance: type === 'buy' ? portfolio.btc_balance + btcAmount : portfolio.btc_balance - btcAmount,
+    if (!btcPrice || btcPrice <= 0) { setError('Esperando precio de BTC...'); return }
+    try {
+      setLoading(true)
+      const btcAmount = mxnAmount / btcPrice
+      if (type === 'buy' && mxnAmount > portfolio.balance_mxn) { setError('Saldo insuficiente'); setLoading(false); return }
+      if (type === 'sell' && btcAmount > portfolio.btc_balance) { setError('No tienes suficiente BTC'); setLoading(false); return }
+      const newPortfolio: Portfolio = {
+        balance_mxn: type === 'buy' ? portfolio.balance_mxn - mxnAmount : portfolio.balance_mxn + mxnAmount,
+        btc_balance: type === 'buy' ? portfolio.btc_balance + btcAmount : portfolio.btc_balance - btcAmount,
+      }
+      const newTrade: Trade = { id: Date.now().toString(), type, amount_mxn: mxnAmount, btc_amount: btcAmount, price_mxn: btcPrice, created_at: new Date().toISOString() }
+      setPortfolio(newPortfolio)
+      setTrades(prev => [newTrade, ...prev])
+      setAmountInput('')
+    } catch (err) {
+      setError('Error al ejecutar la operación')
+    } finally {
+      setLoading(false)
     }
-    const newTrade: Trade = { id: Date.now().toString(), type, amount_mxn: mxnAmount, btc_amount: btcAmount, price_mxn: btcPrice, created_at: new Date().toISOString() }
-    setPortfolio(newPortfolio)
-    setTrades(prev => [newTrade, ...prev])
-    setAmountInput('')
-    setLoading(false)
   }
+
 
   const handleTrade = () => {
     if (mode === 'dca') {
