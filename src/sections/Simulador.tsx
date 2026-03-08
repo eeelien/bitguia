@@ -139,7 +139,7 @@ export default function Simulador() {
               </div>
               {error && (<div className="flex items-start gap-2 bg-red-900/20 border border-red-700/30 rounded-lg p-3"><AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" /><p className="text-sm text-red-200">{error}</p></div>)}
               {mode !== 'dca' ? (
-                <input min="0" type="number" value={amountInput} onChange={e => { setAmountInput(e.target.value); setError('') }} placeholder="Cantidad en MXN" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
+                <input min="0" type="text" value={amountInput} onChange={e => { setAmountInput(e.target.value); setError('') }} placeholder="Cantidad en MXN" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
               ) : (
                 <div className="space-y-3">
                   <input min="0" type="number" value={dcaAmount} onChange={e => { setDcaAmount(e.target.value); setError('') }} placeholder="Cantidad por compra (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
