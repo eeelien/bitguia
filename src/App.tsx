@@ -26,7 +26,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center gap-2 mb-6">
             <Bitcoin className="w-8 h-8 text-orange-500" />
-            <h1 className="text-3xl font-bold">BitGuía</h1>
+            <h1 className="text-3xl font-bold">Mi Amigo Bitcoin 🤝</h1>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-2">
@@ -55,7 +55,7 @@ function App() {
         <div className="mb-4 flex items-start gap-2 bg-yellow-900/20 border border-yellow-700/30 rounded-lg p-3">
           <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
           <p className="text-sm text-yellow-200">
-            Aviso Legal: BitGuía es una herramienta educativa. Esto NO es asesoramiento financiero. Las transacciones son simuladas.
+            Aviso Legal:Mi Amigo Bitcoin © es una herramienta educativa. Esto NO es asesoramiento financiero. Las transacciones son simuladas.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ function App() {
 
       <footer className="bg-gray-900 border-t border-gray-800 mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
-          <p>BitGuía © 2024 | Precios en tiempo real desde CoinGecko</p>
+          <p> 2024 | Mi Amigo Bitcoin ©Precios en tiempo real desde CoinGecko</p>
         </div>
       </footer>
     </div>
