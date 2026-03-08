@@ -162,7 +162,7 @@ export default function Simulador() {
                 <input type="number" value={amountInput} onChange={e => { setAmountInput(e.target.value); setError('') }} placeholder="Cantidad en MXN" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
               ) : (
                 <div className="space-y-3">
-                  <input type="number" value={dcaAmount} onChange={e => { setDcaAmount(e.target.value); setError('') }} placeholder="Cantidad por compra (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
+                  <input type="number" min="0" value={dcaAmount} onChange={e => { setDcaAmount(e.target.value); setError('') }} placeholder="Cantidad por compra (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
                   <select value={dcaFrequency} onChange={e => setDcaFrequency(e.target.value as any)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500">
                     <option value="daily">Diario</option><option value="weekly">Semanal</option><option value="monthly">Mensual</option>
                   </select>
