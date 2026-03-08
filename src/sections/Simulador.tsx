@@ -56,25 +56,6 @@ export default function Simulador() {
       console.error('Error fetching BTC price', err)
     }
   }
-    try {
-      const price = await getBTCPriceMXN()
-      if (price && price > 0) {
-        setBtcPrice(price)
-        if (stopLossPrice && Number(stopLossPrice) > price) {
-          setError(`⚠️ Stop loss: BTC está en $${price.toLocaleString('es-MX')} MXN`)
-        }
-      }
-    } catch (err) {
-      console.error('Error fetching BTC price', err)
-    }
-  }
-
-    const price = await getBTCPriceMXN()
-    setBtcPrice(price)
-    if (stopLossPrice && Number(stopLossPrice) > price) {
-      setError(`⚠️ Stop loss activado: BTC cayó a $${price.toLocaleString('es-MX')} MXN`)
-    }
-  }
 
   const executeTrade = (type: 'buy' | 'sell', mxnAmount: number) => {
     setError('')
@@ -98,7 +79,6 @@ export default function Simulador() {
       setLoading(false)
     }
   }
-
 
   const handleTrade = () => {
     if (mode === 'dca') {
@@ -159,10 +139,10 @@ export default function Simulador() {
               </div>
               {error && (<div className="flex items-start gap-2 bg-red-900/20 border border-red-700/30 rounded-lg p-3"><AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" /><p className="text-sm text-red-200">{error}</p></div>)}
               {mode !== 'dca' ? (
-                <input type="number" value={amountInput} onChange={e => { setAmountInput(e.target.value); setError('') }} placeholder="Cantidad en MXN" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
+                <input min="0" type="number" value={amountInput} onChange={e => { setAmountInput(e.target.value); setError('') }} placeholder="Cantidad en MXN" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
               ) : (
                 <div className="space-y-3">
-                  <input type="number" min="0" value={dcaAmount} onChange={e => { setDcaAmount(e.target.value); setError('') }} placeholder="Cantidad por compra (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
+                  <input min="0" type="number" value={dcaAmount} onChange={e => { setDcaAmount(e.target.value); setError('') }} placeholder="Cantidad por compra (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500" />
                   <select value={dcaFrequency} onChange={e => setDcaFrequency(e.target.value as any)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500">
                     <option value="daily">Diario</option><option value="weekly">Semanal</option><option value="monthly">Mensual</option>
                   </select>
@@ -179,7 +159,7 @@ export default function Simulador() {
         <div className="space-y-4">
           <div className="bg-gray-900 rounded-lg border border-gray-800 p-6">
             <h3 className="font-semibold mb-4 text-lg">Stop Loss</h3>
-            <input type="number" value={stopLossPrice} onChange={e => setStopLossPrice(e.target.value)} placeholder="Precio límite (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 mb-2" />
+            <input min="0" type="number" value={stopLossPrice} onChange={e => setStopLossPrice(e.target.value)} placeholder="Precio límite (MXN)" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 mb-2" />
             <p className="text-xs text-gray-400 mb-3">Recibirás alerta si BTC cae a este precio.</p>
             <div className="p-3 bg-orange-900/20 border border-orange-700/30 rounded-lg text-xs text-orange-200">Stop Loss es educativo. Las ventas son manuales.</div>
           </div>
